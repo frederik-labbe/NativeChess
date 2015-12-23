@@ -1,5 +1,6 @@
 #board { width:400px; height:400px; margin:auto; }
-#board div { display:inline-block; width:50px; height:50px; margin:0; padding:0; vertical-align:top; font-size:34px; text-align:center; }
+#board div { display:inline-block; border:solid 1px #000000; width:48px; height:48px; margin:0; padding:0; vertical-align:top; font-size:34px; text-align:center; cursor:pointer; }
 .cell-default { background: transparent; }
 .cell-dark { background: #dd0000; }
 .cell-light { background: #ffffdd; }
+.cell-possible { background: #f7e487 !important; }

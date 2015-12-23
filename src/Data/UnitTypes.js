@@ -2,7 +2,7 @@ UnitTypes.def = {
     king: {
         white:
             Unit.def.init({
-                id: 'white-king',
+                id: 'king',
                 color: 'white',
                 displayName: {
                     en: 'king',
@@ -13,7 +13,7 @@ UnitTypes.def = {
             
         black:
             Unit.def.init({
-                id: 'black-king',
+                id: 'king',
                 color: 'black',
                 displayName: {
                     en: 'king',
@@ -26,7 +26,7 @@ UnitTypes.def = {
     queen: {
         white: 
             Unit.def.init({
-                id: 'white-queen',
+                id: 'queen',
                 color: 'white',
                 displayName: {
                     base: 'queen',
@@ -37,7 +37,7 @@ UnitTypes.def = {
             
         black:
             Unit.def.init({
-                id: 'black-queen',
+                id: 'queen',
                 color: 'black',
                 displayName: {
                     base: 'queen',
@@ -49,7 +49,7 @@ UnitTypes.def = {
     rook: {
         white:
             Unit.def.init({
-                id: 'white-rook',
+                id: 'rook',
                 color: 'white',
                 displayName: {
                     base: 'rook',
@@ -60,7 +60,7 @@ UnitTypes.def = {
             
         black:
             Unit.def.init({
-                id: 'black-rook',
+                id: 'rook',
                 color: 'black',
                 displayName: {
                     base: 'rook',
@@ -72,7 +72,7 @@ UnitTypes.def = {
     bishop: {
         white:
             Unit.def.init({
-                id: 'white-bishop',
+                id: 'bishop',
                 color: 'white',
                 displayName: {
                     base: 'bishop',
@@ -83,7 +83,7 @@ UnitTypes.def = {
             
         black:
             Unit.def.init({
-                id: 'black-bishop',
+                id: 'bishop',
                 color: 'black',
                 displayName: {
                     base: 'bishop',
@@ -95,7 +95,7 @@ UnitTypes.def = {
     knight: {
         white:
             Unit.def.init({
-                id: 'white-knight',
+                id: 'knight',
                 color: 'white',
                 displayName: {
                     base: 'knight',
@@ -106,7 +106,7 @@ UnitTypes.def = {
             
         black:
             Unit.def.init({
-                id: 'black-knight',
+                id: 'knight',
                 color: 'black',
                 displayName: {
                     base: 'knight',
@@ -118,21 +118,21 @@ UnitTypes.def = {
     pawn: {
         white:
             Unit.def.init({
-                id: 'white-rook',
+                id: 'pawn',
                 color: 'white',
                 displayName: {
-                    base: 'rook',
-                    fr: 'tour'
+                    base: 'pawn',
+                    fr: 'pion'
                 },
                 uchar: '\u2659'
             }),
             
         black:
             Unit.def.init({
-                id: 'black-rook',
+                id: 'pawn',
                 color: 'black',
                 displayName: {
-                    base: 'rook',
+                    base: 'pawn',
                     fr: 'tour'
                 },
                 uchar: '\u265f'

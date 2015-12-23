@@ -4,5 +4,6 @@ Game.def = {
         board.drawGrid();
         
         Ctx.game = this;
+        Ctx.turn = 'white';
     }
 };

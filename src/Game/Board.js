@@ -17,12 +17,17 @@ Board.def = {
             
             drawGrid: function() {
                 var oddCell = true;
-                var nx = this._nx;
-                var ny = this._ny;
-                var dom = this._dom;
+                var board = this;
+                var nx = board._nx;
+                var ny = board._ny;
+                var dom = board._dom;
                 Array.from(Array(ny)).forEach(function(valueI, i) {
                     Array.from(Array(nx)).forEach(function(valueJ, j) {
-                        var cell = Cell.def.init(dom);
+                        var cell = Cell.def.init(dom, {
+                            x: j,
+                            y: i
+                        });
+                        
                         if (oddCell) {
                             cell.setLight();
                         } else {
@@ -35,7 +40,8 @@ Board.def = {
                         }
                         
                         cell.addEventListener('mouseover', function(c) {
-                            c.showMoves();
+                            board.disableAllMoves();
+                            c.enableMoves();
                         });
                         
                         cell.addEventListener('click', function(c) {
@@ -43,20 +49,29 @@ Board.def = {
                         });
                         
                         cell.appendTo('#board');
+                        board.cells.push(cell);
+                        
                         oddCell = !oddCell;
                     });
                     oddCell = !oddCell;
                 });
             },
             
+            disableAllMoves: function() {
+                this.cells.forEach(function(cell) {
+                    cell.setImpossible();
+                });
+            },
+            
             getCell: function(x, y) {
-                this._dom.getElementAt(y*this._ny + x);
+                return this._dom.getElementAt(y*this._ny + x);
             },
     
             _nx: -1,
             _ny: -1,
     
-            _dom: null
+            _dom: null,
+            cells: []
         }
     }
 };
