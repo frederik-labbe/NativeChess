@@ -6,3 +6,5 @@ var Game={},
     InitialState={},
     Dom={},
     Mem={};
+    
+var Ctx={};

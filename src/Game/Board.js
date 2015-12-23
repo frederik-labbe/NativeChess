@@ -1,6 +1,8 @@
 Board.def = {
     init: function(nx, ny) {
-        return this.model().init(nx, ny);
+        var board = this.model().init(nx, ny);
+        Ctx.board = board;
+        return board;
     },
     
     model: function() {

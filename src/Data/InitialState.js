@@ -25,15 +25,6 @@ InitialState.def = {
             ,
             ,
             [
-                UnitTypes.def.rook.white,
-                UnitTypes.def.knight.white,
-                UnitTypes.def.bishop.white,
-                UnitTypes.def.queen.white,
-                UnitTypes.def.king.white,
-                UnitTypes.def.bishop.white,
-                UnitTypes.def.knight.white,
-                UnitTypes.def.rook.white
-            ], [
                 UnitTypes.def.pawn.white,
                 UnitTypes.def.pawn.white,
                 UnitTypes.def.pawn.white,
@@ -42,6 +33,15 @@ InitialState.def = {
                 UnitTypes.def.pawn.white,
                 UnitTypes.def.pawn.white,
                 UnitTypes.def.pawn.white
+            ], [
+                UnitTypes.def.rook.white,
+                UnitTypes.def.knight.white,
+                UnitTypes.def.bishop.white,
+                UnitTypes.def.queen.white,
+                UnitTypes.def.king.white,
+                UnitTypes.def.bishop.white,
+                UnitTypes.def.knight.white,
+                UnitTypes.def.rook.white
             ]
         ];
     }
