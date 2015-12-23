@@ -19,11 +19,11 @@ Cell.def = {
             },
             
             showMoves: function() {
-                //TODO: display possible moves
+                //TODO(frederik-labbe): display possible moves
             },
             
             select: function() {
-                //TODO: this is for handling testing purpose
+                //TODO(frederik-labbe): this is for handling testing purpose
                 // one click on own unit --> highlight unit
                 // then one click on possible move --> move unit
                 if (this.state == 'light') {
@@ -34,7 +34,7 @@ Cell.def = {
             },
             
             moveUnit: function(x, y) {
-                //TODO: move unit to coordinate x,y
+                //TODO(frederik-labbe): move unit to coordinate x,y
             },
     
             setLight: function() {
