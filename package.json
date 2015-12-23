@@ -1,0 +1,16 @@
+{
+  "name": "nativechess",
+  "version": "1.0.0",
+  "description": "Native JS chess game",
+  "main": "index.html",
+  "scripts": {
+    "start": "node ./node_modules/http-server/bin/http-server -p 9000 -o -s"
+  },
+  "author": "Frederik Labbe",
+  "license": "GPL",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "http-server": "*"
+  }
+}
