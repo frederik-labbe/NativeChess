@@ -24,8 +24,7 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=232;None;0;EUTF-8;0;1;0;C%3A%5CUsers%5CFrederik%5CDocuments%5CProjects%5CNativeChess%5Cpackage.json;0;4
+current_page=-1
 
 [gproject]
 source_patterns=*.js;*.css;*.json;*.html;
