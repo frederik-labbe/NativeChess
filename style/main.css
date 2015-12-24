@@ -4,3 +4,4 @@
 .cell-dark { background: #dd0000; }
 .cell-light { background: #ffffdd; }
 .cell-possible { background: #f7e487 !important; cursor:pointer; }
+.cell-possible-locked { background: #aaff87 !important; cursor:pointer; }

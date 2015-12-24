@@ -19,37 +19,15 @@ Cell.def = {
                 this.unit = unit;
             },
             
-            enableMoves: function() {
-                if (this.unit && this.unit.color == Ctx.turn) {
-                    var board = Ctx.board;
-                    
-                    var moves = RelativeMoves.def[this.unit.id];
-                    if (moves && moves.first && this.unit.firstMove) {
-                        moves = moves.first;
-                    } else {
-                        moves = moves.base;
-                    }
-                    
-                    var cell = this;
-                    cell.setPossible();
-                    
-                    var relative = Ctx.turn == 'black' ? 1 : -1;
-                    moves.forEach(function(move) {
-                        board.getCell(
-                            cell.coord.x + relative * move.x,
-                            cell.coord.y + relative * move.y
-                        ).setPossible();
-                    });
-                }
+            hasOwnUnit: function() {
+                return this.hasUnit() && this.unit.color == Ctx.turn;
             },
             
             select: function() {
-                Ctx.board.selectCell(this);
                 this.selected = true;
             },
             
             unselect: function() {
-                Ctx.board.unselectCell();
                 this.selected = false;
             },
             
@@ -75,9 +53,16 @@ Cell.def = {
                 this.possible = true;
             },
             
+            setPossibleLocked: function() {
+                var cell = this._domElement;
+                cell.className += ' cell-possible-locked';
+                this.possible = true;
+            },
+            
             setImpossible: function() {
                 var cell = this._domElement;
                 cell.className = cell.className.replace('cell-possible', '');
+                cell.className = cell.className.replace('cell-possible-locked', '');
                 this.possible = false;
             },
             
@@ -93,6 +78,14 @@ Cell.def = {
             
             getElement: function() {
                 return this._domElement;
+            },
+            
+            hasUnit: function() {
+                return this.unit ? true : false;
+            },
+            
+            isSelected: function() {
+                return this.selected ? true : false;
             },
             
             _domElement: null,

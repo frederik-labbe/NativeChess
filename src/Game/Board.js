@@ -40,17 +40,21 @@ Board.def = {
                         }
                         
                         cell.addEventListener('mouseover', function(c) {
-                            if (!board.isSelectedCell()) {
+                            if (!board.hasUnitSelected()) {
                                 board.disableAllMoves();
-                                c.enableMoves();
+                                if (c.hasOwnUnit()) {
+                                    board.enableMoves(c);
+                                }
                             }
                         });
                         
                         cell.addEventListener('click', function(c) {
-                            if (!c.selected) {
-                                c.select();
+                            if (c.hasOwnUnit() && !c.isSelected()) {
+                                board.lockMoveOptions();
+                                board.selectCell(c);
                             } else {
-                                c.unselect();
+                                board.unlockMoveOptions();
+                                board.unselectCell(c);
                             }
                         });
                         
@@ -60,6 +64,46 @@ Board.def = {
                         oddCell = !oddCell;
                     });
                     oddCell = !oddCell;
+                });
+            },
+            
+            enableMoves: function(cell) {
+                var unit = cell.unit;
+                var board = this;
+                board.moveOptions = [];
+                
+                var moves = RelativeMoves.def[unit.id];
+                if (moves && moves.first && unit.firstMove) {
+                    moves = moves.first;
+                } else {
+                    moves = moves.base;
+                }
+                
+                board.moveOptions.push(cell);
+                cell.setPossible();
+                
+                var relative = Ctx.turn == 'black' ? 1 : -1;
+                moves.forEach(function(move) {
+                    var relativeCell = board.getCell(
+                        cell.coord.x + relative * move.x,
+                        cell.coord.y + relative * move.y
+                    );
+                    board.moveOptions.push(relativeCell);
+                    relativeCell.setPossible();
+                });
+            },
+            
+            lockMoveOptions: function() {
+                this.moveOptions.forEach(function(cell) {
+                    cell.setImpossible();
+                    cell.setPossibleLocked();
+                });
+            },
+            
+            unlockMoveOptions: function() {
+                this.moveOptions.forEach(function(cell) {
+                    cell.setImpossible();
+                    cell.setPossible();
                 });
             },
             
@@ -74,14 +118,16 @@ Board.def = {
             },
             
             selectCell: function(cell) {
+                cell.select();
                 this.selectedCell = cell;
             },
             
-            unselectCell: function() {
+            unselectCell: function(cell) {
+                cell.unselect();
                 this.selectedCell = null;
             },
             
-            isSelectedCell: function() {
+            hasUnitSelected: function() {
                 return this.selectedCell ? true : false;
             },
     
@@ -90,7 +136,8 @@ Board.def = {
     
             _dom: null,
             cells: [],
-            selectedCell: null
+            moveOptions: [],
+            selectedCell: null,
         }
     }
 };
