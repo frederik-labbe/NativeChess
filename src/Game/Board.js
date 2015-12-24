@@ -40,12 +40,18 @@ Board.def = {
                         }
                         
                         cell.addEventListener('mouseover', function(c) {
-                            board.disableAllMoves();
-                            c.enableMoves();
+                            if (!board.isSelectedCell()) {
+                                board.disableAllMoves();
+                                c.enableMoves();
+                            }
                         });
                         
                         cell.addEventListener('click', function(c) {
-                            c.select();
+                            if (!c.selected) {
+                                c.select();
+                            } else {
+                                c.unselect();
+                            }
                         });
                         
                         cell.appendTo('#board');
@@ -66,12 +72,25 @@ Board.def = {
             getCell: function(x, y) {
                 return this._dom.getElementAt(y*this._ny + x);
             },
+            
+            selectCell: function(cell) {
+                this.selectedCell = cell;
+            },
+            
+            unselectCell: function() {
+                this.selectedCell = null;
+            },
+            
+            isSelectedCell: function() {
+                return this.selectedCell ? true : false;
+            },
     
             _nx: -1,
             _ny: -1,
     
             _dom: null,
-            cells: []
+            cells: [],
+            selectedCell: null
         }
     }
 };

@@ -44,14 +44,13 @@ Cell.def = {
             },
             
             select: function() {
-                //TODO(frederik-labbe): this is for handling testing purpose
-                // one click on own unit --> highlight unit
-                // then one click on possible move --> move unit
-                if (this.state == 'light') {
-                    this.setDark();
-                } else {
-                    this.setLight();
-                }
+                Ctx.board.selectCell(this);
+                this.selected = true;
+            },
+            
+            unselect: function() {
+                Ctx.board.unselectCell();
+                this.selected = false;
             },
             
             moveUnit: function(x, y) {
@@ -102,7 +101,8 @@ Cell.def = {
             coord: {},
             state: null,
             possible: false,
-            unit: null
+            unit: null,
+            selected: false
         }
     }
 };
