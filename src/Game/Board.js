@@ -40,8 +40,10 @@ Board.def = {
                         }
                         
                         cell.addEventListener('mouseover', function(c) {
-                            if (!board.hasUnitSelected()) {
-                                board.disableAllMoves();
+                            if (!board.hasCellSelected()) {
+                                if (board.moveOptions.length > 0) {
+                                    board.disableAllMoves();
+                                }
                                 if (c.hasOwnUnit()) {
                                     board.enableMoves(c);
                                 }
@@ -49,12 +51,14 @@ Board.def = {
                         });
                         
                         cell.addEventListener('click', function(c) {
-                            if (c.hasOwnUnit() && !c.isSelected()) {
-                                board.lockMoveOptions();
-                                board.selectCell(c);
-                            } else {
-                                board.unlockMoveOptions();
-                                board.unselectCell(c);
+                            if (c.hasOwnUnit()) {
+                                if (!board.hasCellSelected(c)) {
+                                    board.selectCell(c);
+                                    board.lockMoveOptions();
+                                } else if (c.isSelected()) {
+                                    board.unselectCell(c);
+                                    board.unlockMoveOptions();
+                                }
                             }
                         });
                         
@@ -111,6 +115,7 @@ Board.def = {
                 this.cells.forEach(function(cell) {
                     cell.setImpossible();
                 });
+                this.moveOptions = [];
             },
             
             getCell: function(x, y) {
@@ -127,7 +132,7 @@ Board.def = {
                 this.selectedCell = null;
             },
             
-            hasUnitSelected: function() {
+            hasCellSelected: function() {
                 return this.selectedCell ? true : false;
             },
     
