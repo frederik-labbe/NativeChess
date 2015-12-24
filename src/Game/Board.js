@@ -59,6 +59,11 @@ Board.def = {
                                     board.unselectCell(c);
                                     board.unlockMoveOptions();
                                 }
+                            } else if (c.possible) {
+                                board.selectedCell.moveUnit(c);
+                                board.disableAllMoves();
+                                board.unselectCell(board.selectedCell);
+                                Ctx.turn = Ctx.turn == 'black' ? 'white' : 'black';
                             }
                         });
                         
@@ -77,7 +82,7 @@ Board.def = {
                 board.moveOptions = [];
                 
                 var moves = RelativeMoves.def[unit.id];
-                if (moves && moves.first && unit.firstMove) {
+                if (moves && moves.first && cell.firstMove) {
                     moves = moves.first;
                 } else {
                     moves = moves.base;

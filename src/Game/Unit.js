@@ -15,8 +15,7 @@ Unit.def = {
             
             id: null,
             displayName: null,
-            uchar: null,
-            firstMove: true
+            uchar: null
         }
     }
 };

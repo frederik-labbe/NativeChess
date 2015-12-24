@@ -19,6 +19,13 @@ Cell.def = {
                 this.unit = unit;
             },
             
+            removeUnit: function() {
+                var elem = this._domElement;
+                elem.innerHTML = '';
+                elem.textContent = '';
+                this.unit = null;
+            },
+            
             hasOwnUnit: function() {
                 return this.hasUnit() && this.unit.color == Ctx.turn;
             },
@@ -31,8 +38,11 @@ Cell.def = {
                 this.selected = false;
             },
             
-            moveUnit: function(x, y) {
-                //TODO(frederik-labbe): move unit to coordinate x,y
+            moveUnit: function(cell) {
+                cell.setUnit(this.unit);
+                cell.firstMove = false;
+                this.removeUnit();
+                this.firstMove = true;
             },
     
             setLight: function() {
@@ -95,7 +105,9 @@ Cell.def = {
             state: null,
             possible: false,
             unit: null,
-            selected: false
+            selected: false,
+            
+            firstMove: true
         }
     }
 };
