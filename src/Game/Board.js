@@ -93,12 +93,20 @@ Board.def = {
                 
                 var relative = Ctx.turn == 'black' ? 1 : -1;
                 moves.forEach(function(move) {
-                    var relativeCell = board.getCell(
-                        cell.coord.x + relative * move.x,
-                        cell.coord.y + relative * move.y
-                    );
-                    board.moveOptions.push(relativeCell);
-                    relativeCell.setPossible();
+                    var relativeX = cell.coord.x + relative * move.x;
+                    var relativeY = cell.coord.y + relative * move.y;
+                    
+                    if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
+                        var relativeCell = board.getCell(
+                            cell.coord.x + relative * move.x,
+                            cell.coord.y + relative * move.y
+                        );
+                        
+                        if (!relativeCell.hasOwnUnit()) {
+                            board.moveOptions.push(relativeCell);
+                            relativeCell.setPossible();
+                        }
+                    }
                 });
             },
             
@@ -139,6 +147,10 @@ Board.def = {
             
             hasCellSelected: function() {
                 return this.selectedCell ? true : false;
+            },
+            
+            getDimension: function() {
+                return this._nx;
             },
     
             _nx: -1,
