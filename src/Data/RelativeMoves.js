@@ -12,7 +12,7 @@ RelativeMoves.def = {
     
     queen: {
         get base() {
-            return RelativeMoves.def.getStraights().concat(RelativeMoves.def.getDiagonals());
+            return RelativeMoves.def.getStraights(7).concat(RelativeMoves.def.getDiagonals(7));
         },
         
         canJumpOver: false
@@ -20,7 +20,7 @@ RelativeMoves.def = {
     
     rook: {
         get base() {
-            return RelativeMoves.def.getStraights();
+            return RelativeMoves.def.getStraights(7);
         },
         
         canJumpOver: false
@@ -28,7 +28,7 @@ RelativeMoves.def = {
     
     bishop: {
         get base() {
-            return RelativeMoves.def.getDiagonals();
+            return RelativeMoves.def.getDiagonals(7);
         },
         
         canJumpOver: false
@@ -62,24 +62,26 @@ RelativeMoves.def = {
         canJumpOver: false
     },
     
-    getDiagonals: function() {
+    getDiagonals: function(count) {
         var moves = [];
-        Array.from(Array(Ctx.board.getDimension())).forEach(function(valueI, i) {
-            moves.push({x:-i, y: i});
-            moves.push({x:-i, y:-i});
-            moves.push({x: i, y: i});
-            moves.push({x: i, y:-i});
+        Array.from(Array(count)).forEach(function(valueI, i) {
+            var next = i + 1;
+            moves.push({x:-next, y: next});
+            moves.push({x:-next, y:-next});
+            moves.push({x: next, y: next});
+            moves.push({x: next, y:-next});
         });
         return moves;
     },
     
-    getStraights: function() {
+    getStraights: function(count) {
         var moves = [];
-        Array.from(Array(Ctx.board.getDimension())).forEach(function(valueI, i) {
-            moves.push({x:-i, y: 0});
-            moves.push({x: i, y: 0});
-            moves.push({x: 0, y: i});
-            moves.push({x: 0, y:-i});
+        Array.from(Array(count)).forEach(function(valueI, i) {
+            var next = i + 1;
+            moves.push({x:-next, y: 0});
+            moves.push({x: next, y: 0});
+            moves.push({x: 0,    y: next});
+            moves.push({x: 0,    y:-next});
         });
         return moves;
     }
