@@ -1,8 +1,8 @@
 #board { width:400px; height:400px; margin:auto; }
 #board div { display:inline-block; border:solid 1px #000000; width:48px; height:48px; margin:0; padding:0; vertical-align:top; font-size:34px; text-align:center; }
 .cell-default { background: transparent; }
-.cell-dark { background: #dd0000; }
-.cell-light { background: #ffffdd; }
-.cell-possible { background: #f7e487 !important; cursor:pointer; }
-.cell-possible-locked { background: #aaff87 !important; cursor:pointer; }
+.cell-dark { background: #CD3700; }
+.cell-light { background: #FFE4C4; }
+.cell-possible { background: #e7e7e7 !important; cursor:pointer; }
+.cell-possible-locked { background: #f7f7f7 !important; cursor:pointer; }
 .cell-focus { background: #ddeeff !important; cursor:pointer; }
