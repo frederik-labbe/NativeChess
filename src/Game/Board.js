@@ -96,18 +96,18 @@ Board.def = {
                     var encounter = false;
                     
                     movePath.forEach(function(move) {
-                        var relativeX = cell.coord.x + move.x;
-                        var relativeY = cell.coord.y + direction * move.y;
-                    
-                        if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
-                            var relativeCell = board.getCell(relativeX, relativeY);
-                            
-                            if (!relativeCell.hasUnit()) {
-                                if (!encounter || canJump) {
+                        if (!encounter || canJump) {
+                            var relativeX = cell.coord.x + move.x;
+                            var relativeY = cell.coord.y + direction * move.y;
+                        
+                            if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
+                                var relativeCell = board.getCell(relativeX, relativeY);
+                                
+                                if (!relativeCell.hasUnit()) {
                                     board.moveOptions.push(relativeCell);
+                                } else if (!canJump) {
+                                    encounter = true;
                                 }
-                            } else if (!canJump) {
-                                encounter = true;
                             }
                         }
                     });
