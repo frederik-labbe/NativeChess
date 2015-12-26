@@ -79,34 +79,42 @@ Board.def = {
             enableMoves: function(cell) {
                 var unit = cell.unit;
                 var board = this;
-                board.moveOptions = [];
+                board.moveOptions = [cell];
                 
-                var moves = RelativeMoves.def[unit.id];
-                if (moves && moves.first && cell.firstMove) {
-                    moves = moves.first;
+                var relatives = RelativeMoves.def[unit.id];
+                var canJump = relatives.canJumpOver;
+                var movePaths;
+                if (relatives.first && cell.firstMove) {
+                    movePaths = relatives.first.movePaths;
                 } else {
-                    moves = moves.base;
+                    movePaths = relatives.base.movePaths;
                 }
                 
-                board.moveOptions.push(cell);
-                cell.setPossible();
+                var direction = Ctx.turn == 'black' ? 1 : -1;
                 
-                var relative = Ctx.turn == 'black' ? 1 : -1;
-                moves.forEach(function(move) {
-                    var relativeX = cell.coord.x + relative * move.x;
-                    var relativeY = cell.coord.y + relative * move.y;
+                movePaths.forEach(function(movePath) {
+                    var encounter = false;
                     
-                    if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
-                        var relativeCell = board.getCell(
-                            cell.coord.x + relative * move.x,
-                            cell.coord.y + relative * move.y
-                        );
-                        
-                        if (!relativeCell.hasOwnUnit()) {
-                            board.moveOptions.push(relativeCell);
-                            relativeCell.setPossible();
+                    movePath.forEach(function(move) {
+                        var relativeX = cell.coord.x + move.x;
+                        var relativeY = cell.coord.y + direction * move.y;
+                    
+                        if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
+                            var relativeCell = board.getCell(relativeX, relativeY);
+                            
+                            if (!relativeCell.hasUnit()) {
+                                if (!encounter || canJump) {
+                                    board.moveOptions.push(relativeCell);
+                                }
+                            } else if (!canJump) {
+                                encounter = true;
+                            }
                         }
-                    }
+                    });
+                });
+                
+                board.moveOptions.forEach(function(moveOption) {
+                    moveOption.setPossible();
                 });
             },
             

@@ -1,88 +1,110 @@
 RelativeMoves.def = {
     king: {
-        base: [
-            {x:-1, y:-1},
-            {x:-1, y: 1},
-            {x: 1, y:-1},
-            {x: 1, y: 1}
-        ],
+        base: {
+            movePaths: [
+                [
+                    {x:-1, y:-1},
+                    {x:-1, y: 1},
+                    {x: 1, y:-1},
+                    {x: 1, y: 1}
+                ]
+            ]
+        },
         
         canJumpOver: false
     },
     
     queen: {
-        get base() {
-            return RelativeMoves.def.getStraights(7).concat(RelativeMoves.def.getDiagonals(7));
+        base: {
+            get movePaths() {
+                return RelativeMoves.def.getStraights(7).concat(RelativeMoves.def.getDiagonals(7));
+            }
         },
         
         canJumpOver: false
     },
     
     rook: {
-        get base() {
-            return RelativeMoves.def.getStraights(7);
+        base: {
+            get movePaths() {
+                return RelativeMoves.def.getStraights(7);
+            }
         },
         
         canJumpOver: false
     },
     
     bishop: {
-        get base() {
-            return RelativeMoves.def.getDiagonals(7);
+        base: {
+            get movePaths() {
+                return RelativeMoves.def.getDiagonals(7);
+            }
         },
         
         canJumpOver: false
     },
     
     knight: {
-        base: [
-            {x:-2, y:1},
-            {x:-2, y:-1},
-            {x:-1, y:2},
-            {x:-1, y:-2},
-            {x:1, y:2},
-            {x:1, y:-2},
-            {x:2, y:1},
-            {x:2, y:-1}
-        ],
+        base: {
+            movePaths: [
+                [
+                    {x:-2, y:1},
+                    {x:-2, y:-1},
+                    {x:-1, y:2},
+                    {x:-1, y:-2},
+                    {x:1, y:2},
+                    {x:1, y:-2},
+                    {x:2, y:1},
+                    {x:2, y:-1}
+                ]
+            ]
+        },
         
         canJumpOver: true
     },
     
     pawn: {
-        first: [
-            {x:0, y:1},
-            {x:0, y:2}
-        ],
+        first: {
+            movePaths: [
+                [
+                    {x:0, y:1},
+                    {x:0, y:2}
+                ]
+            ]
+        },
         
-        base: [
-            {x:0, y:1}
-        ],
+        base: {
+            movePaths: [
+                [
+                    {x:0, y:1}
+                ]
+            ]
+        },
         
         canJumpOver: false
     },
     
     getDiagonals: function(count) {
-        var moves = [];
+        var movePaths = [[],[],[],[]];
         Array.from(Array(count)).forEach(function(valueI, i) {
             var next = i + 1;
-            moves.push({x:-next, y: next});
-            moves.push({x:-next, y:-next});
-            moves.push({x: next, y: next});
-            moves.push({x: next, y:-next});
+            movePaths[0].push({x:-next, y: next});
+            movePaths[1].push({x:-next, y:-next});
+            movePaths[2].push({x: next, y: next});
+            movePaths[3].push({x: next, y:-next});
         });
-        return moves;
+        return movePaths;
     },
     
     getStraights: function(count) {
-        var moves = [];
+        var movePaths = [[],[],[],[]];
         Array.from(Array(count)).forEach(function(valueI, i) {
             var next = i + 1;
-            moves.push({x:-next, y: 0});
-            moves.push({x: next, y: 0});
-            moves.push({x: 0,    y: next});
-            moves.push({x: 0,    y:-next});
+            movePaths[0].push({x:-next, y: 0});
+            movePaths[1].push({x: next, y: 0});
+            movePaths[2].push({x: 0,    y: next});
+            movePaths[3].push({x: 0,    y:-next});
         });
-        return moves;
+        return movePaths;
     }
 };
