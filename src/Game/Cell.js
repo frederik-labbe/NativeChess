@@ -77,14 +77,14 @@ Cell.def = {
                         
             unfocus: function() {
                 var cell = this._domElement;
-                cell.className = cell.className.replace('cell-focus', '');
+                cell.className = cell.className.replace(' cell-focus', '');
                 this.focused = false;
             },
             
             setImpossible: function() {
                 var cell = this._domElement;
-                cell.className = cell.className.replace('cell-possible', '');
-                cell.className = cell.className.replace('cell-possible-locked', '');
+                cell.className = cell.className.replace(' cell-possible-locked', '');
+                cell.className = cell.className.replace(' cell-possible', '');
                 this.possible = false;
             },
             

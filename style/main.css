@@ -5,4 +5,4 @@
 .cell-light { background: #ffffdd; }
 .cell-possible { background: #f7e487 !important; cursor:pointer; }
 .cell-possible-locked { background: #aaff87 !important; cursor:pointer; }
-.cell-focus { background: #eeeeee !important; cursor:pointer; }
+.cell-focus { background: #ddeeff !important; cursor:pointer; }
