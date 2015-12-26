@@ -30,6 +30,10 @@ Cell.def = {
                 return this.hasUnit() && this.unit.color == Ctx.turn;
             },
             
+            hasEnemyUnit: function() {
+                return this.hasUnit() && this.unit.color != Ctx.turn;
+            },
+            
             select: function() {
                 this.selected = true;
             },
@@ -63,6 +67,12 @@ Cell.def = {
                 this.possible = true;
             },
             
+            setPossibleAttack: function() {
+                var cell = this._domElement;
+                cell.className += ' cell-possible-attack';
+                this.possible = true;
+            },
+            
             setPossibleLocked: function() {
                 var cell = this._domElement;
                 cell.className += ' cell-possible-locked';
@@ -83,6 +93,7 @@ Cell.def = {
             
             setImpossible: function() {
                 var cell = this._domElement;
+                cell.className = cell.className.replace(' cell-possible-attack', '');
                 cell.className = cell.className.replace(' cell-possible-locked', '');
                 cell.className = cell.className.replace(' cell-possible', '');
                 this.possible = false;

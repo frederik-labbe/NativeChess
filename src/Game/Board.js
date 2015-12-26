@@ -86,6 +86,8 @@ Board.def = {
                 board.moveOptions = [];
                 
                 var relatives = RelativeMoves.def[unit.id];
+                var attacks = RelativeAttacks.def[unit.id];
+                
                 var canJump = relatives.canJumpOver;
                 var movePaths;
                 if (relatives.first && cell.firstMove) {
@@ -109,13 +111,34 @@ Board.def = {
                                 
                                 if (!relativeCell.hasUnit()) {
                                     board.moveOptions.push(relativeCell);
-                                } else if (!canJump) {
-                                    encounter = true;
+                                } else {
+                                    if (attacks.movePaths && relativeCell.hasEnemyUnit()) {
+                                        board.moveOptions.push(relativeCell);
+                                    }
+                                    
+                                    if (!canJump) {
+                                        encounter = true;
+                                    }
                                 }
                             }
                         }
                     });
                 });
+                
+                if (attacks.custom) {
+                    attacks.custom.forEach(function(customAttack) {
+                        var relativeX = cell.coord.x + customAttack.x;
+                        var relativeY = cell.coord.y + direction * customAttack.y;
+                        
+                        if (relativeX >= 0 && relativeX < board._nx && relativeY >= 0 && relativeY < board._ny) {
+                            var relativeCell = board.getCell(relativeX, relativeY);
+                            
+                            if (relativeCell.hasEnemyUnit()) {
+                                board.moveOptions.push(relativeCell);
+                            }
+                        }
+                    });
+                }
                 
                 board.moveOptions.forEach(function(moveOption) {
                     moveOption.setPossible();
