@@ -69,6 +69,18 @@ Cell.def = {
                 this.possible = true;
             },
             
+            focus: function() {
+                var cell = this._domElement;
+                cell.className += ' cell-focus';
+                this.focused = true;
+            },
+                        
+            unfocus: function() {
+                var cell = this._domElement;
+                cell.className = cell.className.replace('cell-focus', '');
+                this.focused = false;
+            },
+            
             setImpossible: function() {
                 var cell = this._domElement;
                 cell.className = cell.className.replace('cell-possible', '');
@@ -106,6 +118,7 @@ Cell.def = {
             possible: false,
             unit: null,
             selected: false,
+            focused: false,
             
             firstMove: true
         }

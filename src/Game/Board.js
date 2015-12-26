@@ -45,6 +45,10 @@ Board.def = {
                                     board.disableAllMoves();
                                 }
                                 if (c.hasOwnUnit()) {
+                                    if (board.hasCellFocused()) {
+                                        board.unfocusCell(board.focusedCell);
+                                    }
+                                    board.focusCell(c);
                                     board.enableMoves(c);
                                 }
                             }
@@ -60,7 +64,7 @@ Board.def = {
                                     board.unlockMoveOptions();
                                 }
                             } else if (c.possible) {
-                                board.selectedCell.moveUnit(c);
+                                board.moveCellUnit(board.selectedCell, c);
                                 board.disableAllMoves();
                                 board.unselectCell(board.selectedCell);
                                 Ctx.turn = Ctx.turn == 'black' ? 'white' : 'black';
@@ -79,7 +83,7 @@ Board.def = {
             enableMoves: function(cell) {
                 var unit = cell.unit;
                 var board = this;
-                board.moveOptions = [cell];
+                board.moveOptions = [];
                 
                 var relatives = RelativeMoves.def[unit.id];
                 var canJump = relatives.canJumpOver;
@@ -118,6 +122,11 @@ Board.def = {
                 });
             },
             
+            moveCellUnit: function(cellFrom, cellTo) {
+                cellFrom.moveUnit(cellTo);
+                cellFrom.unfocus();
+            },
+            
             lockMoveOptions: function() {
                 this.moveOptions.forEach(function(cell) {
                     cell.setImpossible();
@@ -133,14 +142,24 @@ Board.def = {
             },
             
             disableAllMoves: function() {
-                this.cells.forEach(function(cell) {
-                    cell.setImpossible();
+                this.moveOptions.forEach(function(moveOption) {
+                    moveOption.setImpossible();
                 });
                 this.moveOptions = [];
             },
             
             getCell: function(x, y) {
                 return this._dom.getElementAt(y*this._ny + x);
+            },
+            
+            focusCell: function(cell) {
+                cell.focus();
+                this.focusedCell = cell;
+            },
+            
+            unfocusCell: function(cell) {
+                cell.unfocus();
+                this.focusedCell = null;
             },
             
             selectCell: function(cell) {
@@ -151,6 +170,10 @@ Board.def = {
             unselectCell: function(cell) {
                 cell.unselect();
                 this.selectedCell = null;
+            },
+            
+            hasCellFocused: function() {
+                return this.focusedCell ? true : false;
             },
             
             hasCellSelected: function() {
@@ -168,6 +191,7 @@ Board.def = {
             cells: [],
             moveOptions: [],
             selectedCell: null,
+            focusedCell: null
         }
     }
 };
