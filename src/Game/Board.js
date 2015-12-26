@@ -41,13 +41,13 @@ Board.def = {
                         
                         cell.addEventListener('mouseover', function(c) {
                             if (!board.hasCellSelected()) {
+                                if (board.hasCellFocused()) {
+                                    board.unfocusCell(board.focusedCell);
+                                }
                                 if (board.moveOptions.length > 0) {
                                     board.disableAllMoves();
                                 }
                                 if (c.hasOwnUnit()) {
-                                    if (board.hasCellFocused()) {
-                                        board.unfocusCell(board.focusedCell);
-                                    }
                                     board.focusCell(c);
                                     board.enableMoves(c);
                                 }
